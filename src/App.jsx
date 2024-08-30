@@ -3,9 +3,8 @@ import { Provider } from 'react-redux';
 import store from './redux/store';
 import Navbar from './components/Navbar';
 import Landing from './components/Landing';
-import Step1 from './components/Step1';
-import Step2 from './components/Step2';
-import Step3 from './components/Step3';
+import Design from './components/Design'; // Rename Step1 to Design
+import Payment from './components/Payment'; // Rename Step3 to Payment
 import Confirmation from './components/Confirmation';
 
 const App = () => {
@@ -41,17 +40,16 @@ const App = () => {
       <div>
         <Navbar cartCount={cartCount} />
         {step === 0 && <Landing onNext={() => setStep(1)} onCartUpdate={handleCartUpdate} />}
-        {step === 1 && <Step1 onNext={handleNext} />}
-        {step === 2 && <Step2 designData={designData} onBack={handleBack} onProceed={() => setStep(3)} />}
-        {step === 3 && (
-          <Step3
+        {step === 1 && <Design onNext={handleNext} />} {/* Changed from Step1 to Design */}
+        {step === 2 && (
+          <Payment
             designData={designData}
             onFinalize={handleFinalize}
             cartCount={cartCount}
             onCartUpdate={handleCartUpdate} // Pass the handleCartUpdate function
           />
         )}
-        {step === 4 && <Confirmation orderDetails={orderDetails} />}
+        {step === 3 && <Confirmation orderDetails={orderDetails} />} {/* Adjusted step number */}
       </div>
     </Provider>
   );

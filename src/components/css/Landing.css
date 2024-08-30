@@ -1,0 +1,39 @@
+.landing-container {
+    min-height: 100vh;
+    background: linear-gradient(to right, #4299e1, #38a169); /* Tailwind's blue-500 to green-400 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.landing-title {
+    font-size: 3rem; /* Approx 5xl */
+    font-weight: bold;
+    color: white;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.landing-subtitle {
+    font-size: 1.125rem; /* Approx text-lg */
+    color: white;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.landing-button {
+    padding: 0.75rem 1.5rem; /* Approx px-6 py-3 */
+    background-color: white;
+    color: #4299e1; /* Tailwind's blue-500 */
+    border-radius: 9999px; /* Full rounded */
+    font-weight: 600;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Shadow-lg */
+    transition: background-color 0.3s ease, color 0.3s ease;
+    cursor: pointer;
+}
+
+.landing-button:hover {
+    background-color: #4299e1; /* Tailwind's blue-500 */
+    color: white;
+}

@@ -1,291 +1,60 @@
-import React, { useState, useEffect } from 'react';
-import CartIcon from './icons/CartIcon';
-import { useSpring, animated, config } from 'react-spring';
+import React, { useState } from 'react';
+import { Provider } from 'react-redux';
+import store from './redux/store';
+import Navbar from './components/Navbar';
+import Landing from './components/Landing';
+import Step1 from './components/Step1';
+import Step2 from './components/Step2';
+import Step3 from './components/Step3';
+import Confirmation from './components/Confirmation';
 
-const Navbar = ({ cartCount }) => {
-    const [isSidebarOpen, setSidebarOpen] = useState(false);
-    const [isDropdownOpen, setDropdownOpen] = useState(false);
-    const [hoveredSubDropdown, setHoveredSubDropdown] = useState(null);
+const App = () => {
+    const [step, setStep] = useState(0);
+    const [designData, setDesignData] = useState(null);
+    const [orderDetails, setOrderDetails] = useState(null);
+    const [cartCount, setCartCount] = useState(0);
 
-    // Toggle the sidebar
-    const toggleSidebar = () => {
-        setSidebarOpen(prevState => !prevState);
+    const handleNext = (data) => {
+        setDesignData(data);
+        setStep(step + 1);
     };
 
-    // Close sidebar on window resize
-    useEffect(() => {
-        const handleResize = () => {
-            if (window.innerWidth >= 640 && isSidebarOpen) {
-                setSidebarOpen(false);
-            }
+    const handleBack = () => setStep(step - 1);
+
+    const handleFinalize = (paymentData) => {
+        const orderData = {
+            ...designData,
+            ...paymentData,
+            orderNumber: 'LX123456',
+            deliveryDate: '5-7 business days',
         };
-
-        window.addEventListener('resize', handleResize);
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, [isSidebarOpen]);
-
-    // Sidebar animation for sliding in and out
-    const sidebarAnimation = useSpring({
-        transform: isSidebarOpen ? 'translateX(0)' : 'translateX(-100%)',
-        config: { tension: 200, friction: 15 }, // Faster animation
-        immediate: !isSidebarOpen, // Instantly close sidebar without animation when closing
-    });
-
-    // Overlay animation for the transparent shade
-    const overlayAnimation = useSpring({
-        opacity: isSidebarOpen ? 1 : 0,
-        config: { duration: 100 }, // Show overlay instantly
-        pointerEvents: isSidebarOpen ? 'auto' : 'none', // Disable pointer events when overlay is hidden
-    });
-
-    // Handle the dropdown toggle on button hover only
-    const handleDropdownButtonHover = () => {
-        setDropdownOpen(true);
+        setOrderDetails(orderData);
+        setStep(step + 1);
     };
 
-    // Close the dropdown after leaving both button and dropdown area
-    const handleDropdownLeave = () => {
-        setDropdownOpen(false);
+    const handleCartUpdate = () => {
+        setCartCount(cartCount + 1); // Increment the cart count
     };
-
-    // Handle hovering over a specific mobile brand to show the sub-dropdown
-    const handleSubDropdownHover = (brand) => {
-        setHoveredSubDropdown(brand);
-    };
-
-    // Close sub-dropdown when hovering away
-    const closeSubDropdown = () => {
-        setHoveredSubDropdown(null);
-    };
-
-    // Animation for dropdown
-    const dropdownAnimation = useSpring({
-        opacity: isDropdownOpen ? 1 : 0,
-        transform: isDropdownOpen ? 'translateY(0)' : 'translateY(-10px)',
-        config: { duration: 300 },
-    });
 
     return (
-        <header className="bg-white shadow-md">
-            <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
-                {/* Hamburger menu for mobile */}
-                <div className="sm:hidden">
-                    <button
-                        onClick={toggleSidebar}
-                        className="p-2 text-gray-700 relative group"
-                        style={{ border: 'none', background: 'transparent' }}
-                    >
-                        <div className="relative w-6 h-4 flex flex-col justify-between items-start">
-                            {/* First Line */}
-                            <span
-                                className="block h-1 bg-gray-700 w-4 transition-all duration-300 ease-in-out group-hover:w-6"
-                                style={{ transitionProperty: 'width' }} // Only transition width
-                            />
-                            {/* Middle Line */}
-                            <span className="block h-1 bg-gray-700 w-6" />
-                            {/* Third Line */}
-                            <span
-                                className="block h-1 bg-gray-700 w-4 transition-all duration-300 ease-in-out group-hover:w-6"
-                                style={{ transitionProperty: 'width' }} // Only transition width
-                            />
-                        </div>
-                    </button>
-                </div>
-
-                {/* Luxy Store */}
-                <div className="flex justify-center sm:justify-start">
-                    <a href="/" className="text-xl font-bold">
-                        Luxy Store
-                    </a>
-                </div>
-
-                {/* Navbar Links */}
-                <div className="hidden sm:flex items-center space-x-6">
-                    <div className="relative" onMouseLeave={handleDropdownLeave}>
-                        <button
-                            className="relative text-gray-700 hover:text-green-900 hover:underline hover:decoration-indigo-800 transition-all duration-300 ease-in-out p-3 flex items-center space-x-1"
-                            onMouseEnter={handleDropdownButtonHover} // Trigger on button hover
-                            style={{ border: 'none', background: 'transparent' }}
-                        >
-                            <span>Mobile Skins</span>
-                            <svg
-                                className={`ml-2 w-4 h-4 transition-transform ${isDropdownOpen ? 'transform rotate-180' : ''}`}
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth="2"
-                                    d="M19 9l-7 7-7-7"
-                                />
-                            </svg>
-                        </button>
-
-                        {/* Brahmastra  */}
-                        <div className="absolute left-0 top-full h-2 w-full" />
-
-                        {/* Dropdown */}
-                        {isDropdownOpen && (
-                            <animated.div
-                                className="absolute left-0 mt-2 p-4 w-64 bg-white shadow-lg border border-gray-200 rounded-md z-10"
-                                style={dropdownAnimation}
-                                onMouseEnter={handleDropdownButtonHover} // Keep dropdown open on hover
-                                onMouseLeave={handleDropdownLeave} // Close on leaving dropdown
-                            >
-                                {/* iPhone */}
-                                <div
-                                    className="p-3 relative"
-                                    onMouseEnter={() => handleSubDropdownHover('iPhone')}
-                                    onMouseLeave={closeSubDropdown}
-                                >
-                                    <p className="font-semibold justify-center text-gray-800 hover:decoration-blue-400">iPhone</p>
-                                    {hoveredSubDropdown === 'iPhone' && (
-                                        <div style={dropdownAnimation} className="absolute left-full top-0 p-3 w-48 bg-white shadow-lg border border-gray-200 rounded-xl z-20">
-                                            <ul className="pl-4 p-3">
-                                                <li className="py-1 hover:text-indigo-600">iPhone 15 Pro Max</li>
-                                                <li className="py-1 hover:text-indigo-600">iPhone 14 Pro Max</li>
-                                            </ul>
-                                        </div>
-                                    )}
-                                </div>
-
-                                {/* Samsung */}
-                                <div
-                                    onMouseEnter={() => handleSubDropdownHover('Samsung')}
-                                    onMouseLeave={closeSubDropdown}
-                                    className="p-3 relative"
-                                >
-                                    <p className="font-semibold   place-self-center text-gray-800">Samsung</p>
-                                    {hoveredSubDropdown === 'Samsung' && (
-                                        <div className="absolute left-full top-0 p-3 w-48 bg-white shadow-lg border border-gray-200 rounded-xl z-20">
-                                            <ul className="pl-4 p-3">
-                                                <li className="py-1 hover:text-indigo-600">Samsung S24 Ultra</li>
-                                                <li className="py-1 hover:text-indigo-600">Samsung S24</li>
-                                            </ul>
-                                        </div>
-                                    )}
-                                </div>
-
-                                {/* Google Pixel */}
-                                <div
-                                    onMouseEnter={() => handleSubDropdownHover('Pixel')}
-                                    onMouseLeave={closeSubDropdown}
-                                    className="p-3 relative"
-                                >
-                                    <p className="font-semibold  text-gray-800">Google Pixel</p>
-                                    {hoveredSubDropdown === 'Pixel' && (
-                                        <div className="absolute left-full top-0 p-3 w-48 bg-white shadow-lg border border-gray-200 rounded-xl z-20">
-                                            <ul className="pl-4 p-3">
-                                                <li className="py-1 hover:text-indigo-600">Google Pixel 8</li>
-                                                <li className="py-1 hover:text-indigo-600">Google Pixel 7</li>
-                                            </ul>
-                                        </div>
-                                    )}
-                                </div>
-                            </animated.div>
-                        )}
-
-                    </div>
-                    <a href="/find-your-device" className="text-gray-700 hover:text-gray-900">
-                        Find Your Device
-                    </a>
-                    <a href="/how-to-apply" className="text-gray-700 hover:text-gray-900">
-                        How to Apply
-                    </a>
-                    <a href="/login" className="text-gray-700 hover:text-gray-900">
-                        Login
-                    </a>
-                </div>
-
-                {/* Cart Icon */}
-                <div className="flex items-center justify-end">
-                    <div className="relative">
-                        <CartIcon count={cartCount} />
-                    </div>
-                </div>
-            </nav>
-
-            {/* Overlay for the transparent shade */}
-            <animated.div
-                style={overlayAnimation}
-                className="fixed inset-0 bg-black bg-opacity-50 z-40" // Overlay immediately appears/disappears
-                onClick={toggleSidebar} // Clicking outside closes the sidebar
-            />
-
-            {/* Sidebar for Mobile */}
-            <animated.div
-                style={sidebarAnimation}
-                className="fixed inset-y-0 left-0 w-64 bg-white shadow-lg z-50"
-            >
-                <div className="flex items-center justify-between p-4">
-                    <a href="/" className="text-xl font-bold">
-                        Luxy Store
-                    </a>
-                    <button
-                        onClick={toggleSidebar} // Close instantly when clicking X
-                        className="text-gray-700"
-                    >
-                        <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="2"
-                                d="M6 18L18 6M6 6l12 12"
-                            />
-                        </svg>
-                    </button>
-                </div>
-
-                <nav className="mt-8 px-4">
-                    <button
-                        onClick={() => setDropdownOpen(!isDropdownOpen)}
-                        className="block py-2 text-gray-700"
-                    >
-                        Mobile Skins
-                    </button>
-                    {isDropdownOpen && (
-                        <div className="pl-4 py-0">
-                            <div className="p-2">
-                                <p className="font-semibold text-gray-800">iPhone</p>
-                                <ul className="pl-4">
-                                    <li className="py-1 hover:text-indigo-600">iPhone 15 Pro Max</li>
-                                    <li className="py-1 hover:text-indigo-600">iPhone 14 Pro Max</li>
-                                </ul>
-                            </div>
-                            <div className="p-2">
-                                <p className="font-semibold text-gray-800">Samsung</p>
-                                <ul className="pl-4">
-                                    <li className="py-1 hover:text-indigo-600">Samsung S24 Ultra</li>
-                                    <li className="py-1 hover:text-indigo-600">Samsung S24</li>
-                                </ul>
-                            </div>
-                            <div className="p-2">
-                                <p className="font-semibold text-gray-800">Google Pixel</p>
-                                <ul className="pl-4">
-                                    <li className="py-1 hover:text-indigo-600">Google Pixel 8</li>
-                                    <li className="py-1 hover:text-indigo-600">Google Pixel 7</li>
-                                </ul>
-                            </div>
-                        </div>
-                    )}
-                    <a href="/find-your-device" className="block py-2 text-gray-700">
-                        Find Your Device
-                    </a>
-                    <a href="/how-to-apply" className="block py-2 text-gray-700">
-                        How to Apply
-                    </a>
-                    <a href="/login" className="block py-2 text-gray-700">
-                        Login
-                    </a>
-                </nav>
-
-            </animated.div>
-        </header>
+        <Provider store={store}>
+            <div>
+                <Navbar cartCount={cartCount} />
+                {step === 0 && <Landing onNext={() => setStep(1)} onCartUpdate={handleCartUpdate} />}
+                {step === 1 && <Step1 onNext={handleNext} />}
+                {step === 2 && <Step2 designData={designData} onBack={handleBack} onProceed={() => setStep(3)} />}
+                {step === 3 && (
+                    <Step3
+                        designData={designData}
+                        onFinalize={handleFinalize}
+                        cartCount={cartCount}
+                        onCartUpdate={handleCartUpdate} // Pass the handleCartUpdate function
+                    />
+                )}
+                {step === 4 && <Confirmation orderDetails={orderDetails} />}
+            </div>
+        </Provider>
     );
 };
 
-export default Navbar;
+export default App;
