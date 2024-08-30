@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import CartIcon from './icons/CartIcon';
 import { useSpring, animated, config } from 'react-spring';
-import Dropdown from './UI_Elemets/dropdown.jsx';
 
 const Navbar = ({ cartCount }) => {
     const [isSidebarOpen, setSidebarOpen] = useState(false);
     const [isDropdownOpen, setDropdownOpen] = useState(false);
     const [hoveredSubDropdown, setHoveredSubDropdown] = useState(null);
+
     // Toggle the sidebar
     const toggleSidebar = () => {
         setSidebarOpen(prevState => !prevState);
@@ -155,13 +155,13 @@ const Navbar = ({ cartCount }) => {
 
                                 {/* Samsung */}
                                 <div
-                                    className="p-3 relative"
                                     onMouseEnter={() => handleSubDropdownHover('Samsung')}
                                     onMouseLeave={closeSubDropdown}
+                                    className="p-3 relative"
                                 >
-                                    <p className="font-semibold justify-center text-gray-800">Samsung</p>
+                                    <p className="font-semibold   place-self-center text-gray-800">Samsung</p>
                                     {hoveredSubDropdown === 'Samsung' && (
-                                        <div style={dropdownAnimation} className="absolute left-full top-0 p-3 w-48 bg-white shadow-lg border border-gray-200 rounded-xl z-20">
+                                        <div className="absolute left-full top-0 p-3 w-48 bg-white shadow-lg border border-gray-200 rounded-xl z-20">
                                             <ul className="pl-4 p-3">
                                                 <li className="py-1 hover:text-indigo-600">Samsung S24 Ultra</li>
                                                 <li className="py-1 hover:text-indigo-600">Samsung S24</li>
@@ -178,7 +178,7 @@ const Navbar = ({ cartCount }) => {
                                 >
                                     <p className="font-semibold  text-gray-800">Google Pixel</p>
                                     {hoveredSubDropdown === 'Pixel' && (
-                                        <div style={dropdownAnimation} className="absolute left-full top-0 p-3 w-48 bg-white shadow-lg border border-gray-200 rounded-xl z-20">
+                                        <div className="absolute left-full top-0 p-3 w-48 bg-white shadow-lg border border-gray-200 rounded-xl z-20">
                                             <ul className="pl-4 p-3">
                                                 <li className="py-1 hover:text-indigo-600">Google Pixel 8</li>
                                                 <li className="py-1 hover:text-indigo-600">Google Pixel 7</li>
@@ -247,35 +247,29 @@ const Navbar = ({ cartCount }) => {
                     >
                         Mobile Skins
                     </button>
-
                     {isDropdownOpen && (
-                        <div style={{ display: 'flex', flexDirection: 'column' }}>
-                            <Dropdown label="iPhone">
-                                <div className="p-2">
-                                    <ul className="pl-4">
-                                        <li className="py-1 hover:text-indigo-600">iPhone 15 Pro Max</li>
-                                        <li className="py-1 hover:text-indigo-600">iPhone 14 Pro Max</li>
-                                    </ul>
-                                </div>
-                            </Dropdown>
-
-                            <Dropdown label="Samsung" className="z-50">
-                                <div className="p-2">
-                                    <ul className="pl-4">
-                                        <li className="py-1 hover:text-indigo-600">Samsung S24 Ultra</li>
-                                        <li className="py-1 hover:text-indigo-600">Samsung S24</li>
-                                    </ul>
-                                </div>
-                            </Dropdown>
-
-                            <Dropdown label="Google Pixel" className="z-50">
-                                <div className="p-2">
-                                    <ul className="pl-4">
-                                        <li className="py-1 hover:text-indigo-600">Google Pixel 8</li>
-                                        <li className="py-1 hover:text-indigo-600">Google Pixel 7</li>
-                                    </ul>
-                                </div>
-                            </Dropdown>
+                        <div className="pl-4 py-0">
+                            <div className="p-2">
+                                <p className="font-semibold text-gray-800">iPhone</p>
+                                <ul className="pl-4">
+                                    <li className="py-1 hover:text-indigo-600">iPhone 15 Pro Max</li>
+                                    <li className="py-1 hover:text-indigo-600">iPhone 14 Pro Max</li>
+                                </ul>
+                            </div>
+                            <div className="p-2">
+                                <p className="font-semibold text-gray-800">Samsung</p>
+                                <ul className="pl-4">
+                                    <li className="py-1 hover:text-indigo-600">Samsung S24 Ultra</li>
+                                    <li className="py-1 hover:text-indigo-600">Samsung S24</li>
+                                </ul>
+                            </div>
+                            <div className="p-2">
+                                <p className="font-semibold text-gray-800">Google Pixel</p>
+                                <ul className="pl-4">
+                                    <li className="py-1 hover:text-indigo-600">Google Pixel 8</li>
+                                    <li className="py-1 hover:text-indigo-600">Google Pixel 7</li>
+                                </ul>
+                            </div>
                         </div>
                     )}
                     <a href="/find-your-device" className="block py-2 text-gray-700">
