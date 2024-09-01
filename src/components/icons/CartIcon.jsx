@@ -11,7 +11,7 @@ const CartIcon = ({ count }) => {
 
             {/* Cart count badge */}
             {count > 0 && (
-                <span className="absolute -top-1 -right-2 flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-600 rounded-full sm:w-4 sm:h-4 sm:text-[10px] md:w-4 md:h-4">
+                <span className="absolute -top-1 -right-2 flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-600 rounded-full sm:w-4 sm:h-4 sm:text-[10px] md:w-4 md:h-4"  style={{ paddingTop:'0.79px',paddingRight: "0.60px", }}>
                     {count}
                 </span>
             )}
