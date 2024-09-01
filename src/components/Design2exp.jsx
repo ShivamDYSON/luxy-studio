@@ -17,11 +17,11 @@ const Step1 = ({ onNext }) => {
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-black to-blue-500 p-4">
-            <div className="flex justify-between items-center w-full max-w-7xl">
+            <div className="flex flex-col md:flex-row items-center justify-center w-full max-w-7xl gap-4">
                 {/* Card Section */}
                 <div
                     className="border-of-div-wrapper"
-                    style={{ width: '700px', height: '600px', marginBottom: '150px' }}
+                    style={{ width: '100%', maxWidth: '700px', height: '600px', marginBottom: '150px' }}
                 >
                     <div className="border-of-div">
                         <div className="content">
@@ -31,8 +31,11 @@ const Step1 = ({ onNext }) => {
                 </div>
 
                 {/* Form Section */}
-                <form className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md ml-8 sm:w-auto" onSubmit={handleSubmit}
-                    style={{ height: '620px', width: '600px', marginBottom: '180px' }}>
+                <form
+                    className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md"
+                    onSubmit={handleSubmit}
+                    style={{ height: '620px', width: '600px', marginBottom: '180px' }}
+                >
                     <h2 className="text-2xl font-bold mb-6 text-center">Design Your Case</h2>
 
                     <div className="mb-4">
@@ -40,7 +43,8 @@ const Step1 = ({ onNext }) => {
                         <select
                             className="w-full p-2 border border-gray-300 rounded"
                             value={mobileModel}
-                            onChange={(e) => setMobileModel(e.target.value)}>
+                            onChange={(e) => setMobileModel(e.target.value)}
+                        >
                             <option value="">Select Model</option>
                             <option value="iphone-13">iPhone 13</option>
                             <option value="samsung-s21">Samsung S21</option>
@@ -52,7 +56,8 @@ const Step1 = ({ onNext }) => {
                         <select
                             className="w-full p-2 border border-gray-300 rounded"
                             value={caseType}
-                            onChange={(e) => setCaseType(e.target.value)}>
+                            onChange={(e) => setCaseType(e.target.value)}
+                        >
                             <option value="">Select Case Type</option>
                             <option value="transparent">Transparent</option>
                             <option value="leather">Leather</option>
@@ -91,7 +96,8 @@ const Step1 = ({ onNext }) => {
 
                     <button
                         type="submit"
-                        className="w-full py-2 bg-purple-500 text-white rounded-full hover:bg-purple-600 transition duration-300">
+                        className="w-full py-2 bg-purple-500 text-white rounded-full hover:bg-purple-600 transition duration-300 text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl"
+                    >
                         Next: Preview Your Design
                     </button>
                 </form>

@@ -68,7 +68,7 @@ const Navbar = ({ cartCount }) => {
     });
 
     return (
-        <header className="bg-white shadow-md">
+        <header className="bg-white shadow-md varela-round-regular">
             <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
                 {/* Hamburger menu for mobile */}
                 <div className="sm:hidden">
@@ -105,7 +105,7 @@ const Navbar = ({ cartCount }) => {
                 <div className="hidden sm:flex items-center space-x-6">
                     <div className="relative" onMouseLeave={handleDropdownLeave}>
                         <button
-                            className="relative text-gray-700 hover:text-green-900 hover:underline hover:decoration-indigo-800 transition-all duration-300 ease-in-out p-3 flex items-center space-x-1"
+                            className="relative text-gray-700 font-semibold  hover:text-green-900 hover:underline hover:decoration-indigo-800 transition-all duration-300 ease-in-out p-3 flex items-center space-x-1"
                             onMouseEnter={handleDropdownButtonHover} // Trigger on button hover
                             style={{ border: 'none', background: 'transparent' }}
                         >
@@ -145,8 +145,9 @@ const Navbar = ({ cartCount }) => {
                                     <p className="font-semibold justify-center text-gray-800 hover:decoration-blue-400">iPhone</p>
                                     {hoveredSubDropdown === 'iPhone' && (
                                         <div style={dropdownAnimation} className="absolute left-full top-0 p-3 w-48 bg-white shadow-lg border border-gray-200 rounded-xl z-20">
-                                            <ul className="pl-4 p-3">
-                                                <li className="py-1 hover:text-indigo-600">iPhone 15 Pro Max</li>
+                                            <ul className="pl-4 py-5 ">
+                                                <li className="py-1  hover:text-indigo-600">iPhone 15 Pro Max</li>
+                                                <div className="my-3"></div>
                                                 <li className="py-1 hover:text-indigo-600">iPhone 14 Pro Max</li>
                                             </ul>
                                         </div>
@@ -162,8 +163,9 @@ const Navbar = ({ cartCount }) => {
                                     <p className="font-semibold justify-center text-gray-800">Samsung</p>
                                     {hoveredSubDropdown === 'Samsung' && (
                                         <div style={dropdownAnimation} className="absolute left-full top-0 p-3 w-48 bg-white shadow-lg border border-gray-200 rounded-xl z-20">
-                                            <ul className="pl-4 p-3">
+                                            <ul className="pl-4 py-5">
                                                 <li className="py-1 hover:text-indigo-600">Samsung S24 Ultra</li>
+                                                <div className="my-3"></div>
                                                 <li className="py-1 hover:text-indigo-600">Samsung S24</li>
                                             </ul>
                                         </div>
@@ -179,8 +181,10 @@ const Navbar = ({ cartCount }) => {
                                     <p className="font-semibold  text-gray-800">Google Pixel</p>
                                     {hoveredSubDropdown === 'Pixel' && (
                                         <div style={dropdownAnimation} className="absolute left-full top-0 p-3 w-48 bg-white shadow-lg border border-gray-200 rounded-xl z-20">
-                                            <ul className="pl-4 p-3">
+                                            <ul className="pl-4 py-5">
                                                 <li className="py-1 hover:text-indigo-600">Google Pixel 8</li>
+                                                <div className="my-3"></div>
+
                                                 <li className="py-1 hover:text-indigo-600">Google Pixel 7</li>
                                             </ul>
                                         </div>
@@ -190,13 +194,13 @@ const Navbar = ({ cartCount }) => {
                         )}
 
                     </div>
-                    <a href="/find-your-device" className="text-gray-700 hover:text-gray-900">
+                    <a href="/find-your-device" className="text-gray-700 hover:text-gray-900 font-semibold">
                         Find Your Device
                     </a>
-                    <a href="/how-to-apply" className="text-gray-700 hover:text-gray-900">
+                    <a href="/how-to-apply" className="text-gray-700 hover:text-gray-900 font-semibold">
                         How to Apply
                     </a>
-                    <a href="/login" className="text-gray-700 hover:text-gray-900">
+                    <a href="/login" className="text-gray-700 hover:text-gray-900 font-semibold">
                         Login
                     </a>
                 </div>
@@ -240,17 +244,17 @@ const Navbar = ({ cartCount }) => {
                     </button>
                 </div>
 
-                <nav className="mt-8 px-4">
+                <nav className="mt-8 px-4 ">
                     <button
                         onClick={() => setDropdownOpen(!isDropdownOpen)}
-                        className="block py-2 text-gray-700"
+                        className="block py-2 text-gray-700 font-semibold"
                     >
                         Mobile Skins
                     </button>
 
                     {isDropdownOpen && (
                         <div style={{ display: 'flex', flexDirection: 'column' }}>
-                            <Dropdown label="iPhone">
+                            <Dropdown label="iPhone" >
                                 <div className="p-2">
                                     <ul className="pl-4">
                                         <li className="py-1 hover:text-indigo-600">iPhone 15 Pro Max</li>
@@ -259,7 +263,7 @@ const Navbar = ({ cartCount }) => {
                                 </div>
                             </Dropdown>
 
-                            <Dropdown label="Samsung" className="z-50">
+                            <Dropdown label="Samsung" className="z-50 ">
                                 <div className="p-2">
                                     <ul className="pl-4">
                                         <li className="py-1 hover:text-indigo-600">Samsung S24 Ultra</li>
@@ -278,13 +282,13 @@ const Navbar = ({ cartCount }) => {
                             </Dropdown>
                         </div>
                     )}
-                    <a href="/find-your-device" className="block py-2 text-gray-700">
+                    <a href="/find-your-device" className="block py-2 text-gray-700 font-semibold">
                         Find Your Device
                     </a>
-                    <a href="/how-to-apply" className="block py-2 text-gray-700">
+                    <a href="/how-to-apply" className="block py-2 text-gray-700 font-semibold">
                         How to Apply
                     </a>
-                    <a href="/login" className="block py-2 text-gray-700">
+                    <a href="/login" className="block py-2 text-gray-700 font-semibold">
                         Login
                     </a>
                 </nav>

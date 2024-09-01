@@ -1,0 +1,76 @@
+/* The outer wrapper with glowing effect */
+  
+.border-of-div-wrapper {
+    position: relative;
+    width: 700px;
+    height: 600px;
+    margin-bottom: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 12px;
+    padding: 5px;
+  }
+  
+  /* Pseudo-elements for the glowing effect */
+  .border-of-div-wrapper::before,
+  .border-of-div-wrapper::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      45deg,
+      #f8050d,
+      #ffbd09,
+      #acff25,
+      #41b5fd,
+      #0150fa,
+      #01e9fa,
+      #0d00a1,
+      #9a5af4,
+      #6c34fb,
+      #3e01a0,
+      #fb49fe
+    );
+    background-size: 400%;
+    z-index: 1; /* Behind content */
+    animation: glow 10s linear infinite;
+    border-radius: 12px;
+  }
+  
+  /* Blur the second pseudo-element for a glowing effect */
+  .border-of-div-wrapper::after {
+    filter: blur(25px);
+  }
+  
+  /* The inner card content */
+  .border-of-div {
+    position: relative;
+    background-color: #fff; /* Content is visible on white background */
+    border-radius: 10px;
+    width: 100%;
+    height: 100%;
+    z-index: 2; /* Make sure content is above the glow */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Optional shadow for the card */
+  }
+  
+  /* Keyframes for the glowing effect */
+  @keyframes glow {
+    0% {
+      background-position: 0% 0%;
+    }
+    50% {
+      background-position: 100% 100%;
+    }
+    100% {
+      background-position: 0% 0%;
+    }
+  }
+  
