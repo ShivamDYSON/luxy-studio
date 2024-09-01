@@ -32,7 +32,7 @@ const Step1 = ({ onNext }) => {
 
                 {/* Form Section */}
                 <form
-                    className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md ml-9"
+                    className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md"
                     onSubmit={handleSubmit}
                     style={{ height: '620px', width: '600px', marginBottom: '180px' }}
                 >
